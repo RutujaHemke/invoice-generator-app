@@ -1,5 +1,3 @@
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 import QR_img from "../assets/QR_img.jpeg";
 import { useState } from "react";
 
@@ -24,6 +22,11 @@ const [data, setData] = useState({
 
   // Logic to generate the PDF
   const generatePDF = async () => {
+    const [{ default: jsPDF }, { default: autoTable }] = await Promise.all([
+      import("jspdf"),
+      import("jspdf-autotable")
+    ]);
+
     const doc = new jsPDF();
     const balance = (Number(data.amount) || 0) - (Number(data.paidAmount) || 0);
 
